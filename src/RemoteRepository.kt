@@ -1,12 +1,11 @@
 import client.Client
 
-fun main(args: Array<String>) {
-    // Link param
-    val address = "192.168.31.63"
-    val port = 9999
+const val ADDRESS = "192.168.31.63"
+const val PORT = 9999
 
+fun main(args: Array<String>) {
     // Create client
-    val client = createClient(address,port)
+    val client = createClient(ADDRESS,PORT)
 
     // Send message
     client.scStopProgram()

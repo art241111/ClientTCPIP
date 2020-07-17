@@ -1,5 +1,6 @@
 package client
 
+import commands.Command
 import java.io.IOException
 import java.io.OutputStream
 import java.net.Socket
@@ -36,7 +37,7 @@ object Client {
     }
 
     fun scStopProgram(){
-        write("/q")
+        write(Command.END_PROGRAM)
     }
 
     /**
