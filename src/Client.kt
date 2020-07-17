@@ -51,15 +51,16 @@ class Client(address: String, port: Int) {
      */
     fun run() {
         if(connected){
-            startRead()
+            thread {
+                startRead()
+            }
+
             startWrite()
         }
     }
 
     private fun startRead(){
-        thread {
-            read()
-        }
+        read()
     }
 
     private fun startWrite(){
