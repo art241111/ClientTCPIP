@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
 
 class Client(address: String, port: Int) {
     private lateinit var connection: Socket
-    private var connected: Boolean
+    private var connected: Boolean = false
 
     private lateinit var reader: Scanner
     private lateinit var writer: OutputStream
@@ -27,23 +27,7 @@ class Client(address: String, port: Int) {
      * Create connection and catch errors
      */
     init {
-        try{
-            connection = Socket(address, port)
-            println("Connected to server at $address on port $port")
-
-            reader = Scanner(connection.getInputStream())
-            writer = connection.getOutputStream()
-
-            connected = true
-        }catch(e: IOException){
-            //TODO: Migrate to log
-            println("Problem with connection. $e")
-            connected = false
-        } catch (e: UnknownHostException){
-            //TODO: Migrate to log
-            println("Problem with connection. $e")
-            connected = false
-        }
+        createConnection(address, port)
     }
 
     /**
@@ -66,6 +50,7 @@ class Client(address: String, port: Int) {
     private fun startWrite(){
         while (connected) {
             val input = readLine() ?: ""
+
             if ("exit" in input) {
                 closeConnection()
             } else {
@@ -99,5 +84,26 @@ class Client(address: String, port: Int) {
     private fun closeConnection(){
         connected = false
         reader.close()
-        connection.close()    }
+        connection.close()
+    }
+
+    private fun createConnection(address: String, port: Int){
+        try{
+            connection = Socket(address, port)
+            println("Connected to server at $address on port $port")
+
+            reader = Scanner(connection.getInputStream())
+            writer = connection.getOutputStream()
+
+            connected = true
+        }catch(e: IOException){
+            //TODO: Migrate to log
+            println("Problem with connection. $e")
+            connected = false
+        } catch (e: UnknownHostException){
+            //TODO: Migrate to log
+            println("Problem with connection. $e")
+            connected = false
+        }
+    }
 }
