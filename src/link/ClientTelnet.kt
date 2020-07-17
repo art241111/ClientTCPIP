@@ -1,7 +1,7 @@
 package link
 
+import commands.Command
 import protocols.Sender
-import java.io.IOException
 import java.io.InputStream
 import java.io.PrintStream
 import java.net.Socket
@@ -10,17 +10,6 @@ class TelnetClient(server: String,port: Int, user: String, password: String): Se
     private val socket: Socket?
     private val `in`: InputStream
     private val out: PrintStream
-    private val login: String
-    private val password: String
-
-    //just sends text to server
-    fun print(value: String) {
-        try {
-            out.println("$value;")
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 
     //this method writes to server, but waits no prompt.
     override fun write(message: String): Boolean {
@@ -49,17 +38,15 @@ class TelnetClient(server: String,port: Int, user: String, password: String): Se
         socket = Socket(server, port)
         `in` = socket.getInputStream()
         out = PrintStream(socket.getOutputStream())
-        login = user
-        this.password = password
 
-//        setPause()
+
         write(user)
-
-//        setPause()
         write(password)
 
-        write("ZPOW ON")
-        //write("do draw 100")
+        write(Command.DELETE_ERRORS)
+        write(Command.TURN_ON_THE_MOTORS)
+
+        setPause()
     }
 
     private fun setPause(millis:Long = 200L){

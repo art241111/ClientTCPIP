@@ -16,7 +16,7 @@ import utils.SendCommands
         val sender = SendCommands
         sender.setClient(client)
 
-//        moveByX(100)
+        moveByX(-100)
 //        moveByY(100)
 //        moveByZ(100)
     }
