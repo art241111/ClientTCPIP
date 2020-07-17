@@ -37,11 +37,11 @@ class Client(address: String, port: Int) {
             connected = true
         }catch(e: IOException){
             //TODO: Migrate to log
-            println(e)
+            println("Problem with connection. $e")
             connected = false
         } catch (e: UnknownHostException){
             //TODO: Migrate to log
-            println(e)
+            println("Problem with connection. $e")
             connected = false
         }
     }
@@ -66,9 +66,7 @@ class Client(address: String, port: Int) {
         while (connected) {
             val input = readLine() ?: ""
             if ("exit" in input) {
-                connected = false
-                reader.close()
-                connection.close()
+                closeConnection()
             } else {
                 write(input)
             }
@@ -76,7 +74,13 @@ class Client(address: String, port: Int) {
     }
 
     private fun write(message: String) {
-        writer.write((message + '\n').toByteArray(Charset.defaultCharset()))
+        try{
+            writer.write((message + '\n').toByteArray(Charset.defaultCharset()))
+        } catch (e: IOException){
+            //TODO: Migrate to log
+            println("Problem with send command. $e")
+        }
+
     }
 
     private fun read() {
@@ -84,8 +88,15 @@ class Client(address: String, port: Int) {
             try{
                 println(reader.nextLine())
             } catch (e: NoSuchElementException){
-                connected = false
-                println(e)
+                closeConnection()
+
+                //TODO: Migrate to log
+                println("Problem with read command. $e")
             }
     }
+
+    private fun closeConnection(){
+        connected = false
+        reader.close()
+        connection.close()    }
 }
