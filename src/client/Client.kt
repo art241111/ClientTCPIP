@@ -33,7 +33,9 @@ object Client:Sender {
                 startRead()
             }
 
-            startWrite()
+            thread{
+                startWrite()
+            }
         }
     }
 
@@ -66,17 +68,17 @@ object Client:Sender {
      * @return if server disconnect - return false
      */
      override fun write(message: String): Boolean {
-       if(connected){
-           try {
-               writer.write((message + '\n').toByteArray(Charset.defaultCharset()))
-           } catch (e: IOException) {
-               //TODO: Migrate to log
-               println("Problem with send command. $e")
-           }
-           return true
-       } else{
-           return false
-       }
+        return if(connected){
+            try {
+                writer.write((message).toByteArray(Charset.defaultCharset()))
+            } catch (e: IOException) {
+                //TODO: Migrate to log
+                println("Problem with send command. $e")
+            }
+            true
+        } else{
+            false
+        }
     }
 
     /**

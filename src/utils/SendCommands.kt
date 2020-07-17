@@ -5,18 +5,17 @@ import commands.Command
 import protocols.Sender
 
 object SendCommands{
-    private lateinit var senser: Sender
+    private lateinit var sender: Sender
 
-    fun setClient(senser: Sender){
-        this.senser = senser
+    fun setClient(sender: Sender){
+        this.sender = sender
     }
 
     fun scStopProgram(){
-        if(senser.write(Command.END_PROGRAM)){
+        if(sender.write(Command.END_PROGRAM)){
             print("Send end command")
         } else {
             print("Send don't work")
         }
-
     }
 }
