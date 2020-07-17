@@ -36,9 +36,7 @@ object Client {
         }
     }
 
-    fun scStopProgram(){
-        write(Command.END_PROGRAM)
-    }
+
 
     /**
      * Start read process
@@ -66,7 +64,7 @@ object Client {
      * Send message to the server
      * @return if server disconnect - return false
      */
-    private fun write(message: String): Boolean {
+     fun write(message: String): Boolean {
        if(connected){
            try {
                writer.write((message + '\n').toByteArray(Charset.defaultCharset()))
