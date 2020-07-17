@@ -8,7 +8,7 @@ import kotlin.concurrent.thread
 
 fun main(args: Array<String>) {
     // Link param
-    val address = "localhost"
+    val address = "192.168.31.63"
     val port = 9999
 
     // Create client
@@ -81,6 +81,11 @@ class Client(address: String, port: Int) {
 
     private fun read() {
         while (connected)
-            println(reader.nextLine())
+            try{
+                println(reader.nextLine())
+            } catch (e: NoSuchElementException){
+                connected = false
+                println(e)
+            }
     }
 }
