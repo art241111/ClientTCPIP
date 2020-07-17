@@ -1,4 +1,4 @@
-package client
+package link
 
 import commands.Command
 import protocols.Sender
@@ -38,8 +38,6 @@ object Client:Sender {
             }
         }
     }
-
-
 
     /**
      * Start read process
@@ -106,6 +104,9 @@ object Client:Sender {
         reader.close()
         writer.close()
         connection.close()
+
+        //TODO: Migrate to log
+        println("Connection is close")
     }
 
     /**

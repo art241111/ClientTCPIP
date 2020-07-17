@@ -1,6 +1,5 @@
 package utils
 
-import client.Client
 import commands.Command
 import protocols.Sender
 
@@ -11,8 +10,24 @@ object SendCommands{
         this.sender = sender
     }
 
-    fun scStopProgram(){
-        if(sender.write(Command.END_PROGRAM)){
+    fun scMoveByX(distance: Int = 10){
+        if(sender.write(Command.MOVE_BY_X + distance)){
+            print("Send end command")
+        } else {
+            print("Send don't work")
+        }
+    }
+
+    fun scMoveByY(distance: Int = 10){
+        if(sender.write(Command.MOVE_BY_Y + distance)){
+            print("Send end command")
+        } else {
+            print("Send don't work")
+        }
+    }
+
+    fun scMoveByZ(distance: Int = 10){
+        if(sender.write(Command.MOVE_BY_Z + distance)){
             print("Send end command")
         } else {
             print("Send don't work")
