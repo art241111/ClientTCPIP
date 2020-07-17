@@ -2,16 +2,21 @@ package utils
 
 import client.Client
 import commands.Command
+import protocols.Sender
 
 object SendCommands{
-    private lateinit var client: Client
+    private lateinit var senser: Sender
 
-    fun setClient(client: Client){
-        this.client = client
+    fun setClient(senser: Sender){
+        this.senser = senser
     }
 
     fun scStopProgram(){
-        client.write(Command.END_PROGRAM)
-        print("Send end command")
+        if(senser.write(Command.END_PROGRAM)){
+            print("Send end command")
+        } else {
+            print("Send don't work")
+        }
+
     }
 }

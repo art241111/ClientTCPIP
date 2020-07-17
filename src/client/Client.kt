@@ -1,6 +1,7 @@
 package client
 
 import commands.Command
+import protocols.Sender
 import java.io.IOException
 import java.io.OutputStream
 import java.net.Socket
@@ -9,7 +10,7 @@ import java.nio.charset.Charset
 import java.util.*
 import kotlin.concurrent.thread
 
-object Client {
+object Client:Sender {
     private lateinit var connection: Socket
     private var connected: Boolean = false
 
@@ -64,7 +65,7 @@ object Client {
      * Send message to the server
      * @return if server disconnect - return false
      */
-     fun write(message: String): Boolean {
+     override fun write(message: String): Boolean {
        if(connected){
            try {
                writer.write((message + '\n').toByteArray(Charset.defaultCharset()))
