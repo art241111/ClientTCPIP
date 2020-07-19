@@ -1,3 +1,4 @@
+import link.RemoteReader
 import link.RemoteWriter
 import link.TelnetClient
 import utils.SendCommands
@@ -13,12 +14,19 @@ import utils.SendCommands
 
     fun main(args: Array<String>) {
         createClient(ADDRESS,PORT,LOGIN,PASSWORD)
-
+        val reader = RemoteReader(client.getSocket())
         sender.setClient(RemoteWriter(client.getSocket()))
 
+        turnOnTheMotors()
+        deleteErrors()
+
 //        moveByX(-100)
-//        moveByY(-100)
+        moveByY(-100)
         moveByZ(-100)
+//        moveByZ(200)
+
+        reader.stopReading()
+
     }
 
     fun createClient(address: String, port: Int, login: String, password: String) {
@@ -36,6 +44,17 @@ import utils.SendCommands
     fun moveByZ(distance: Int = 10){
         sender.scMoveByZ(distance)
     }
+
+    fun turnOnTheMotors(){
+        sender.turnOnTheMotors()
+    }
+
+    fun deleteErrors(){
+        sender.deleteErrors()
+
+    }
+
+
 
 
 

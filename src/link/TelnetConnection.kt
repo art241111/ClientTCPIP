@@ -6,20 +6,13 @@ import java.io.InputStream
 import java.net.Socket
 import java.net.UnknownHostException
 
-class TelnetClient(server: String,port: Int, user: String, password: String){
+class TelnetClient(server: String,
+                   port: Int,
+                   private val user: String,
+                   private val password: String){
     private var socket: Socket = Socket()
-    private val `in`: InputStream
+    private var `in`: InputStream = InputStream.nullInputStream()
 
-    //closes a this client. you may want to send command "exit" beforehand
-    fun disconnect() {
-        try {
-            socket.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    //this constructor is for plain socket. So You do not have to use apache library.
     init {
         try {
             socket= Socket(server, port)
@@ -31,26 +24,31 @@ class TelnetClient(server: String,port: Int, user: String, password: String){
             print("Problem with create socket. \n $e")
         }
 
-        `in` = socket.getInputStream()
+        try {
+//            `in` = socket.getInputStream()
+        } catch (e: IOException){
 
-        val writer = RemoteWriter(socket)
-        writer.write(user)
-        writer.write(password)
+        }
 
-        writer.write(Command.DELETE_ERRORS)
-        writer.write(Command.TURN_ON_THE_MOTORS)
-
-        setPause()
+        authorization()
     }
 
     fun getSocket(): Socket{
         return socket
     }
 
-    private fun setPause(millis:Long = 200L){
+    //closes a this client. you may want to send command "exit" beforehand
+    fun disconnect() {
         try {
-            Thread.sleep(millis)
+            socket.close()
         } catch (e: Exception) {
+            e.printStackTrace()
         }
+    }
+
+    private fun authorization(){
+        val writer = RemoteWriter(socket)
+        writer.write(user)
+        writer.write(password)
     }
 }
