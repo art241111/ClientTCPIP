@@ -1,3 +1,4 @@
+import link.RemoteWriter
 import link.TelnetClient
 import utils.SendCommands
 
@@ -13,12 +14,11 @@ import utils.SendCommands
     fun main(args: Array<String>) {
         createClient(ADDRESS,PORT,LOGIN,PASSWORD)
 
-        val sender = SendCommands
-        sender.setClient(client)
+        sender.setClient(RemoteWriter(client.getSocket()))
 
-        moveByX(-100)
-//        moveByY(100)
-//        moveByZ(100)
+//        moveByX(-100)
+//        moveByY(-100)
+        moveByZ(-100)
     }
 
     fun createClient(address: String, port: Int, login: String, password: String) {
