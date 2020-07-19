@@ -1,8 +1,6 @@
 package link
 
-import commands.Command
 import java.io.IOException
-import java.io.InputStream
 import java.net.Socket
 import java.net.UnknownHostException
 

@@ -1,11 +1,12 @@
 package link
 
-import protocols.Sender
 import java.io.PrintStream
 import java.net.Socket
+import java.util.*
 
-class RemoteWriter(private val socket: Socket): Sender {
+class RemoteWriter(private val socket: Socket) {
     private lateinit var out: PrintStream
+    private val commands: Queue<String> = LinkedList<String>()
 
     init {
         if (socket.isConnected){
@@ -13,11 +14,12 @@ class RemoteWriter(private val socket: Socket): Sender {
         }
     }
 
-    //this method writes to server, but waits no prompt.
-    override fun write(message: String): Boolean {
+    fun write(message: String): Boolean {
         if(socket.isConnected){
+            commands.add(message)
+
             try {
-                out.println(message)
+                out.println(commands.poll())
                 out.flush()
                 return true
             } catch (e: Exception) {
