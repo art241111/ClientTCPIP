@@ -11,7 +11,6 @@ class TelnetClient(server: String,
                    private val user: String,
                    private val password: String){
     private var socket: Socket = Socket()
-    private var `in`: InputStream = InputStream.nullInputStream()
 
     init {
         try {
@@ -22,12 +21,6 @@ class TelnetClient(server: String,
         } catch (e: IOException){
             // TODO: Migrate to log
             print("Problem with create socket. \n $e")
-        }
-
-        try {
-//            `in` = socket.getInputStream()
-        } catch (e: IOException){
-
         }
 
         authorization()

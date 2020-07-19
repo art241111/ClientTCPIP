@@ -2,6 +2,7 @@ package link
 
 import java.net.Socket
 import java.util.*
+import kotlin.NoSuchElementException
 import kotlin.concurrent.thread
 
 class RemoteReader(socket: Socket) {
@@ -11,9 +12,14 @@ class RemoteReader(socket: Socket) {
         if(socket.isConnected){
             connection = true
             val reader = Scanner(socket.getInputStream())
+
             thread {
                 while (connection){
-                    println(reader.nextLine())
+                    try {
+                        println(reader.nextLine())
+                    }catch (e: NoSuchElementException) {
+
+                    }
                 }
             }
         }

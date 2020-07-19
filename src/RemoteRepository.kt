@@ -11,10 +11,11 @@ import utils.SendCommands
 
     private lateinit var client: TelnetClient
     private val sender = SendCommands
+    private lateinit var reader: RemoteReader
 
     fun main(args: Array<String>) {
         createClient(ADDRESS,PORT,LOGIN,PASSWORD)
-        val reader = RemoteReader(client.getSocket())
+        reader = RemoteReader(client.getSocket())
         sender.setClient(RemoteWriter(client.getSocket()))
 
         turnOnTheMotors()
@@ -25,8 +26,11 @@ import utils.SendCommands
         moveByZ(-100)
 //        moveByZ(200)
 
+        disconnect()
+    }
+    fun disconnect(){
         reader.stopReading()
-
+        client.disconnect()
     }
 
     fun createClient(address: String, port: Int, login: String, password: String) {
