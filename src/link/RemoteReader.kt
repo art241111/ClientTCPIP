@@ -1,14 +1,17 @@
 package link
 
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.net.Socket
 import java.util.*
-import kotlin.NoSuchElementException
+import java.util.stream.Collectors
 import kotlin.concurrent.thread
 
-class RemoteReader(socket: Socket) {
+
+class RemoteReader(private val socket: Socket) {
     private var connection = false
 
-    init {
+    fun startReading() {
         if(socket.isConnected){
             connection = true
             val reader = Scanner(socket.getInputStream())
@@ -25,6 +28,20 @@ class RemoteReader(socket: Socket) {
         }
     }
 
+    fun readLine(count: Int):String{
+        val reader = Scanner(socket.getInputStream())
+        val content = StringBuilder()
+
+        try {
+            var line = reader.nextLine()
+            while (line != ">Take data$count") {
+                line = reader.nextLine()
+                content.append(line)
+            }
+        } finally {
+            return content.toString()
+        }
+    }
     fun stopReading(){
         connection = false
         println("Reading end")
