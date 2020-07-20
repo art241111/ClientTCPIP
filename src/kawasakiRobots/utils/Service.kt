@@ -3,20 +3,20 @@ package kawasakiRobots.utils
 import link.RemoteWriter
 import link.TelnetClient
 import commandsProtocols.ServiceCommandIn
+import link.RobotEntity
 
 class Service(private var commands: ServiceCommandIn,
-              client: TelnetClient,
-              private var commandWriter: RemoteWriter
+              private var robotEntity: RobotEntity
              ) {
 
     fun turnOnTheMotors() =
-        commandWriter.write(commands.TURN_ON_THE_MOTORS())
+            robotEntity.writer.write(commands.TURN_ON_THE_MOTORS())
 
     fun resetErrors() =
-        commandWriter.write(commands.DELETE_ERRORS())
+            robotEntity.writer.write(commands.DELETE_ERRORS())
 
     fun getPosition(): String {
-        var coordinates = commandWriter.writeWithCallBack(commands.ROBOT_POSITION())
+        var coordinates = robotEntity.writer.writeWithCallBack(commands.ROBOT_POSITION())
 
         // Bounding the array on both sides
         coordinates = coordinates.substringAfter("JT6")

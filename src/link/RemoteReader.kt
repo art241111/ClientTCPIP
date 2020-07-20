@@ -3,22 +3,20 @@ package link
 import java.util.*
 import kotlin.concurrent.thread
 
-class RemoteReader(private val client: TelnetClient) {
-    private val socket = client.getSocket()
-    private var connection = false
+class RemoteReader(private val robotEntity: RobotEntity) {
+    private val socket = robotEntity.socket
 
     fun startReading() {
         if(socket.isConnected){
-            connection = true
             val reader = Scanner(socket.getInputStream())
 
             thread {
-                while (connection){
+                while (socket.isConnected){
                     try {
                         val line = reader.nextLine()
                         println(line)
                         if(line.trim() == ">DO motion completed."){
-                            client.state = State.WAITING_COMMAND
+                            robotEntity.state = State.WAITING_COMMAND
                         }
                     }catch (e: NoSuchElementException) {
 
@@ -43,8 +41,5 @@ class RemoteReader(private val client: TelnetClient) {
 //        }
         return ""
     }
-    fun stopReading(){
-        connection = false
-        println("Reading end")
-    }
+
 }
