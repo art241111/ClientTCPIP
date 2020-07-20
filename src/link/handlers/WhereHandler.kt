@@ -1,28 +1,13 @@
-package link
+package link.handlers
 
-class CommandAnalyzer(private var robotEntity: RobotEntity) {
+import link.RobotEntity
+
+class WhereHandler(private val robotEntity: RobotEntity) {
     private var counter = -1
     private var position: MutableList<Float> = mutableListOf()
 
-    fun commandAnalysis(command: String){
-        when(command){
-            ">DO motion completed." -> robotEntity.state = State.WAITING_COMMAND
-        }
-
-        handlerWhere(command)
-        handlerErrors(command)
-    }
-
-    private fun handlerErrors(command: String) {
-        if (command.contains("(E", ignoreCase = true) ||
-                command.contains("(P", ignoreCase = true)) {
-            // TODO: Migrate to log
-            println(command)
-            robotEntity.errors.add(command)
-        }
-    }
-
-    private fun handlerWhere(command: String){
+    fun listener(command: String){
+        // TODO:
         when {
             command.contains("JT1", ignoreCase = true) -> {
                 counter = 2
@@ -60,5 +45,4 @@ class CommandAnalyzer(private var robotEntity: RobotEntity) {
 
         return floatArray
     }
-
 }
