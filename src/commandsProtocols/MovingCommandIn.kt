@@ -1,4 +1,4 @@
-package CommandsProtocols
+package commandsProtocols
 
 interface MovingCommandIn {
     fun MOVE_BY_X(): String

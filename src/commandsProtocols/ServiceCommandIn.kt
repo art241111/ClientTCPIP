@@ -1,4 +1,4 @@
-package CommandsProtocols
+package commandsProtocols
 
 interface ServiceCommandIn {
     fun TURN_ON_THE_MOTORS(): String
