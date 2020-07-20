@@ -9,15 +9,13 @@ class RemoteReader(private val robotEntity: RobotEntity) {
     fun startReading() {
         if(socket.isConnected){
             val reader = Scanner(socket.getInputStream())
+            val analyzer = CommandAnalyzer(robotEntity)
 
             thread {
                 while (socket.isConnected){
                     try {
-                        val line = reader.nextLine()
-                        println(line)
-                        if(line.trim() == ">DO motion completed."){
-                            robotEntity.state = State.WAITING_COMMAND
-                        }
+                        analyzer.commandAnalysis(reader.nextLine().trim())
+
                     }catch (e: NoSuchElementException) {
 
                     }
@@ -26,20 +24,5 @@ class RemoteReader(private val robotEntity: RobotEntity) {
         }
     }
 
-    fun readLine(count: Int):String{
-//        val reader = Scanner(socket.getInputStream())
-//        val content = StringBuilder()
-//
-//        try {
-//            var line = reader.nextLine()
-//            while (line != ">Take data$count") {
-//                line = reader.nextLine()
-//                content.append(line)
-//            }
-//        } finally {
-//            return content.toString()
-//        }
-        return ""
-    }
 
 }
