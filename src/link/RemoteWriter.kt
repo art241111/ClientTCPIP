@@ -38,6 +38,7 @@ class RemoteWriter(private val client: TelnetClient) {
             commands.add(message)
 
             write(commands.poll())
+            client.state = State.COMMAND_EXECUTION
 
             try {
                 Thread.sleep(4000L)
@@ -50,21 +51,12 @@ class RemoteWriter(private val client: TelnetClient) {
 
     fun writeWithCallBack(message: String):String{
         if(socket.isConnected){
-            try {
-                out.println(message)
-                out.flush()
+            writeDependingStatus(message)
 
-                try {
-                    Thread.sleep(1000L)
-                } catch (e: java.lang.Exception) {
-                }
+            countCommandsWithCallBack++
+            write("Take data$countCommandsWithCallBack")
 
-                countCommandsWithCallBack++
-                write("Take data$countCommandsWithCallBack")
-                return RemoteReader(client).readLine(countCommandsWithCallBack)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            return RemoteReader(client).readLine(countCommandsWithCallBack)
         } else{
             // TODO: Migrate to log
             println("Writer: no connection to the robot")
