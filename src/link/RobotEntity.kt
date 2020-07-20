@@ -1,15 +1,17 @@
 package link
 
+import link.client.RemoteReader
+import link.client.RemoteWriter
+import link.client.TelnetClient
 import utils.Delay
-import java.net.Socket
 import java.util.*
 import kotlin.concurrent.thread
 
 class RobotEntity(var client: TelnetClient) {
     val socket = client.getSocket()
 
-    lateinit var writer:RemoteWriter
-    lateinit var reader:RemoteReader
+    lateinit var writer: RemoteWriter
+    lateinit var reader: RemoteReader
 
     var state:State = State.WAITING_COMMAND
     var commandsQueue: Queue<String> = LinkedList<String>()

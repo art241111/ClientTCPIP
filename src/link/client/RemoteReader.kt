@@ -1,5 +1,6 @@
-package link
+package link.client
 
+import link.RobotEntity
 import link.handlers.CommandAnalyzer
 import java.util.*
 import kotlin.concurrent.thread

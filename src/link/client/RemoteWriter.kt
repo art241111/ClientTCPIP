@@ -1,9 +1,9 @@
-package link
+package link.client
 
+import link.RobotEntity
+import link.State
 import utils.Delay
 import java.io.PrintStream
-import java.util.*
-import kotlin.concurrent.thread
 
 class RemoteWriter(private val robotEntity: RobotEntity) {
     private val socket = robotEntity.socket

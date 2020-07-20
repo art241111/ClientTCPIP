@@ -1,6 +1,6 @@
-//import link.RemoteReader
-//import link.RemoteWriter
-//import link.TelnetClient
+//import link.client.RemoteReader
+//import link.client.RemoteWriter
+//import link.client.TelnetClient
 //import utils.SendCommands
 //
 //
