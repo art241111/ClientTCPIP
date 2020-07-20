@@ -8,8 +8,8 @@ import kotlin.concurrent.thread
 class RobotEntity(var client: TelnetClient) {
     val socket = client.getSocket()
 
-    val writer = RemoteWriter(this)
-    val reader = RemoteReader(this)
+    lateinit var writer:RemoteWriter
+    lateinit var reader:RemoteReader
 
     var state:State = State.WAITING_COMMAND
     var commandsQueue: Queue<String> = LinkedList<String>()
@@ -17,23 +17,21 @@ class RobotEntity(var client: TelnetClient) {
     var position: MutableList<String> = mutableListOf()
 
     init{
-        reader.startReading()
+        if(socket.isConnected){
+            writer = RemoteWriter(this)
+            reader = RemoteReader(this)
 
-        startQueueListener()
+            reader.startReading()
+
+            startQueueListener()
+        }
     }
 
     fun startQueueListener(){
         thread {
             while (socket.isConnected){
-                if((state == State.WAITING_COMMAND) and
-                        (!commandsQueue.isEmpty())){
-
-                    val command = commandsQueue.poll().trim()
-                    writer.write(command)
-
-                    if(command != "WHERE"){
-                        state = State.COMMAND_EXECUTION
-                    }
+                if((state == State.WAITING_COMMAND) and (!commandsQueue.isEmpty())){
+                    writer.write(commandsQueue.poll().trim())
                 }
                 Delay.little()
             }
