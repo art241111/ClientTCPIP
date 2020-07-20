@@ -14,6 +14,8 @@ class RobotEntity(var client: TelnetClient) {
     var state:State = State.WAITING_COMMAND
     var commandsQueue: Queue<String> = LinkedList<String>()
 
+    var position: MutableList<String> = mutableListOf()
+
     init{
         reader.startReading()
 
