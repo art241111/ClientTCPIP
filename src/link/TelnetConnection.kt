@@ -9,6 +9,7 @@ class TelnetClient(server: String,
                    private val user: String,
                    private val password: String){
     private var socket: Socket = Socket()
+    var state = State.WAITING_COMMAND
 
     init {
         try {

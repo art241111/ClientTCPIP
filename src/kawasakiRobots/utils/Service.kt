@@ -15,7 +15,6 @@ class Service(private var commands: ServiceCommandIn, client: TelnetClient) {
 
     fun getPosition(): String {
         var coordinates = commandWriter.writeWithCallBack(commands.ROBOT_POSITION())
-        println(coordinates)
 
         // Bounding the array on both sides
         coordinates = coordinates.substringAfter("JT6")

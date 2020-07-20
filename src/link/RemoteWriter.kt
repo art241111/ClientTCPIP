@@ -17,16 +17,9 @@ class RemoteWriter(private val socket: Socket) {
 
     fun write(message: String): Boolean {
         if(socket.isConnected){
-            commands.add(message)
-
             try {
-                out.println(commands.poll())
+                out.println(message)
                 out.flush()
-
-                try {
-                    Thread.sleep(4000L)
-                } catch (e: java.lang.Exception) {
-                }
 
                 return true
             } catch (e: Exception) {
@@ -39,12 +32,25 @@ class RemoteWriter(private val socket: Socket) {
         return false
     }
 
-    fun writeWithCallBack(message: String):String{
-        if(socket.isConnected){
+    fun writeDependingStatus(message: String): Boolean {
+        if(socket.isConnected) {
             commands.add(message)
 
+            write(commands.poll())
+
             try {
-                out.println(commands.poll())
+                Thread.sleep(4000L)
+            } catch (e: java.lang.Exception) {
+            }
+            return true
+        }
+        return false
+    }
+
+    fun writeWithCallBack(message: String):String{
+        if(socket.isConnected){
+            try {
+                out.println(message)
                 out.flush()
 
                 try {
