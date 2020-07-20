@@ -12,7 +12,6 @@ class KawasakiRobot(address: String = "127.0.0.1",
                     login: String = "as",
                     password: String = "as") {
     private var client: TelnetClient = TelnetClient(address, port, login, password)
-
     private var robotEntity = RobotEntity(client)
 
     val moving = Moving(MovingCommand(), robotEntity)
@@ -21,5 +20,4 @@ class KawasakiRobot(address: String = "127.0.0.1",
     fun switchRobotOff(){
         client.disconnect()
     }
-
 }
