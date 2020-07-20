@@ -30,13 +30,14 @@ class RemoteWriter(private val robotEntity: RobotEntity) {
     fun writeDependingStatusAndChangeIt(message: String): Boolean {
         val res = robotEntity.commandsQueue.add(message)
 
-        // TODO: Think about how to do it differently
+        // TODO: Think about how to do it differently.
+        //  The status changes instantly and the queue
+        //  does not have time
         Delay.middle()
         robotEntity.state = State.COMMAND_EXECUTION
 
         return res
     }
-
 
     fun writeDependingStatus(message: String):Boolean =
             robotEntity.commandsQueue.add(message)

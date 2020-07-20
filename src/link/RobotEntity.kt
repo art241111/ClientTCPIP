@@ -19,6 +19,8 @@ class RobotEntity(var client: TelnetClient) {
     var position: MutableList<Float> = mutableListOf()
     var errors:MutableList<String> = mutableListOf()
 
+    private var connection = socket.isConnected
+
     init{
         if(socket.isConnected){
             writer = RemoteWriter(this)
@@ -30,9 +32,15 @@ class RobotEntity(var client: TelnetClient) {
         }
     }
 
+    fun disconnect(){
+        socket.close()
+        reader.stopReading()
+        connection = false
+    }
+
     private fun startQueueListener(){
         thread {
-            while (socket.isConnected){
+            while (connection){
                 if((state == State.WAITING_COMMAND) and (!commandsQueue.isEmpty())){
                     writer.write(commandsQueue.poll().trim())
                 }

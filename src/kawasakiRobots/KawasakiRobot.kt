@@ -18,6 +18,10 @@ class KawasakiRobot(address: String = "127.0.0.1",
     val service = Service(ServiceCommand(), robotEntity)
 
     fun switchRobotOff(){
+        while(!robotEntity.commandsQueue.isEmpty() &&
+                robotEntity.state != State.COMMAND_EXECUTION){}
+
         client.disconnect()
+        robotEntity.disconnect()
     }
 }
