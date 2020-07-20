@@ -15,7 +15,11 @@ class RemoteReader(private val client: TelnetClient) {
             thread {
                 while (connection){
                     try {
-                        println(reader.nextLine())
+                        val line = reader.nextLine()
+                        println(line)
+                        if(line == ">DO motion completed."){
+                            client.state = State.WAITING_COMMAND
+                        }
                     }catch (e: NoSuchElementException) {
 
                     }
@@ -25,18 +29,19 @@ class RemoteReader(private val client: TelnetClient) {
     }
 
     fun readLine(count: Int):String{
-        val reader = Scanner(socket.getInputStream())
-        val content = StringBuilder()
-
-        try {
-            var line = reader.nextLine()
-            while (line != ">Take data$count") {
-                line = reader.nextLine()
-                content.append(line)
-            }
-        } finally {
-            return content.toString()
-        }
+//        val reader = Scanner(socket.getInputStream())
+//        val content = StringBuilder()
+//
+//        try {
+//            var line = reader.nextLine()
+//            while (line != ">Take data$count") {
+//                line = reader.nextLine()
+//                content.append(line)
+//            }
+//        } finally {
+//            return content.toString()
+//        }
+        return ""
     }
     fun stopReading(){
         connection = false
