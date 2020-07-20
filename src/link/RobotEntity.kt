@@ -28,7 +28,7 @@ class RobotEntity(var client: TelnetClient) {
         }
     }
 
-    fun startQueueListener(){
+    private fun startQueueListener(){
         thread {
             while (socket.isConnected){
                 if((state == State.WAITING_COMMAND) and (!commandsQueue.isEmpty())){
