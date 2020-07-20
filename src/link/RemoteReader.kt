@@ -17,7 +17,7 @@ class RemoteReader(private val client: TelnetClient) {
                     try {
                         val line = reader.nextLine()
                         println(line)
-                        if(line == ">DO motion completed."){
+                        if(line.trim() == ">DO motion completed."){
                             client.state = State.WAITING_COMMAND
                         }
                     }catch (e: NoSuchElementException) {

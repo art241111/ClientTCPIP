@@ -1,6 +1,6 @@
 package kawasakiRobots.commands.service
 
-import CommandsProtocols.ServiceCommandIn
+import commandsProtocols.ServiceCommandIn
 
 class ServiceCommand: ServiceCommandIn {
     override fun TURN_ON_THE_MOTORS() = "ZPOW ON"

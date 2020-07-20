@@ -2,7 +2,7 @@ package kawasakiRobots.utils
 
 import link.RemoteWriter
 import link.TelnetClient
-import CommandsProtocols.MovingCommandIn
+import commandsProtocols.MovingCommandIn
 
 class Moving(private val command: MovingCommandIn,
              client: TelnetClient,

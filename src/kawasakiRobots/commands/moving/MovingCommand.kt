@@ -1,6 +1,6 @@
 package kawasakiRobots.commands.moving
 
-import CommandsProtocols.MovingCommandIn
+import commandsProtocols.MovingCommandIn
 
 class MovingCommand: MovingCommandIn {
     override fun MOVE_BY_X(): String = "do draw "

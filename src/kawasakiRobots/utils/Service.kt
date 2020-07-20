@@ -2,7 +2,7 @@ package kawasakiRobots.utils
 
 import link.RemoteWriter
 import link.TelnetClient
-import CommandsProtocols.ServiceCommandIn
+import commandsProtocols.ServiceCommandIn
 
 class Service(private var commands: ServiceCommandIn,
               client: TelnetClient,

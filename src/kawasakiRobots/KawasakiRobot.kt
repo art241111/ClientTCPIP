@@ -7,6 +7,7 @@ import kawasakiRobots.commands.moving.MovingCommand
 import kawasakiRobots.commands.service.ServiceCommand
 import link.RemoteReader
 import link.RemoteWriter
+import link.State
 
 class KawasakiRobot(address: String = "127.0.0.1",
                     port: Int = 9105,
@@ -24,8 +25,14 @@ class KawasakiRobot(address: String = "127.0.0.1",
     }
 
     fun switchRobotOff(){
+        try {
+            Thread.sleep(50000L)
+        } catch (e: java.lang.Exception) {
+        }
+
         reader.stopReading()
         client.disconnect()
+        writer.stopWriting()
     }
 
 }
