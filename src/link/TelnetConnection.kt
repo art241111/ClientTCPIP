@@ -1,6 +1,7 @@
 package link
 
 import java.io.IOException
+import java.io.PrintStream
 import java.net.Socket
 import java.net.UnknownHostException
 
@@ -39,8 +40,13 @@ class TelnetClient(server: String,
     }
 
     private fun authorization(){
-        val writer = RobotEntity(this).writer
-        writer.write(user)
-        writer.write(password)
+        val writer =  PrintStream(socket.getOutputStream())
+
+        //TODO: Think about how to do it differently
+        writer.println(user)
+        writer.flush()
+
+        writer.println(password)
+        writer.flush()
     }
 }
