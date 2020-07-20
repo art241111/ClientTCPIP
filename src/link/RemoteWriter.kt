@@ -4,8 +4,9 @@ import java.io.PrintStream
 import java.net.Socket
 import java.util.*
 
-class RemoteWriter(private val socket: Socket) {
+class RemoteWriter(private val client: TelnetClient) {
     private lateinit var out: PrintStream
+    private val socket = client.getSocket()
     private val commands: Queue<String> = LinkedList<String>()
     private var countCommandsWithCallBack = 0
 
@@ -60,7 +61,7 @@ class RemoteWriter(private val socket: Socket) {
 
                 countCommandsWithCallBack++
                 write("Take data$countCommandsWithCallBack")
-                return RemoteReader(socket).readLine(countCommandsWithCallBack)
+                return RemoteReader(client).readLine(countCommandsWithCallBack)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

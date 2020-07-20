@@ -5,7 +5,7 @@ import link.TelnetClient
 import CommandsProtocols.ServiceCommandIn
 
 class Service(private var commands: ServiceCommandIn, client: TelnetClient) {
-    private var commandWriter: RemoteWriter = RemoteWriter(client.getSocket())
+    private var commandWriter: RemoteWriter = RemoteWriter(client)
 
     fun turnOnTheMotors() =
         commandWriter.write(commands.TURN_ON_THE_MOTORS())

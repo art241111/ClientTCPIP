@@ -5,7 +5,7 @@ import link.TelnetClient
 import CommandsProtocols.MovingCommandIn
 
 class Moving(private val command: MovingCommandIn, client: TelnetClient) {
-    private var commandWriter: RemoteWriter = RemoteWriter(client.getSocket())
+    private var commandWriter: RemoteWriter = RemoteWriter(client)
 
     fun moveByX(position: Int) =
         commandWriter.writeDependingStatus(command.MOVE_BY_X() + position)

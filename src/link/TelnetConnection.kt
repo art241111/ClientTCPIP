@@ -39,7 +39,7 @@ class TelnetClient(server: String,
     }
 
     private fun authorization(){
-        val writer = RemoteWriter(socket)
+        val writer = RemoteWriter(this)
         writer.write(user)
         writer.write(password)
     }

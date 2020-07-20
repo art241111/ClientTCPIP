@@ -1,14 +1,10 @@
 package link
 
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.Socket
 import java.util.*
-import java.util.stream.Collectors
 import kotlin.concurrent.thread
 
-
-class RemoteReader(private val socket: Socket) {
+class RemoteReader(private val client: TelnetClient) {
+    private val socket = client.getSocket()
     private var connection = false
 
     fun startReading() {
