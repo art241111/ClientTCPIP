@@ -13,6 +13,6 @@ class Service(private var commands: ServiceCommandIn,
     fun resetErrors() =
             robotEntity.writer.write(commands.DELETE_ERRORS())
 
-    fun getPosition() = robotEntity.writer
+    fun updateInfoAboutPosition() = robotEntity.writer
             .writeDependingStatus(commands.ROBOT_POSITION())
 }
