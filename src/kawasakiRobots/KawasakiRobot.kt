@@ -14,8 +14,8 @@ class KawasakiRobot(address: String = "127.0.0.1",
     private var client: TelnetClient = TelnetClient(address, port, login, password)
     private var robotEntity = RobotEntity(client)
 
-    val moving = Moving(MovingCommand(), robotEntity)
-    val service = Service(ServiceCommand(), robotEntity)
+    val moving = Moving(robotEntity)
+    val service = Service(robotEntity)
 
     fun switchRobotOff(){
         while(!robotEntity.commandsQueue.isEmpty() &&

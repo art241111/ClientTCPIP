@@ -1,17 +1,15 @@
 package kawasakiRobots.utils
 
-import commandsProtocols.MovingCommandIn
+import kawasakiRobots.commands.moving.MovingCommand.*
 import link.RobotEntity
 
-class Moving(private val command: MovingCommandIn,
-             private val robotEntity: RobotEntity) {
-
+class Moving(private val robotEntity: RobotEntity) {
     fun moveByX(position: Int) =
-            robotEntity.writer.writeDependingStatusAndChangeIt(command.MOVE_BY_X() + position)
+            robotEntity.writer.writeDependingStatusAndChangeIt(MOVE_BY_X.command + position)
 
     fun moveByY(position: Int) =
-            robotEntity.writer.writeDependingStatusAndChangeIt(command.MOVE_BY_Y() + position)
+            robotEntity.writer.writeDependingStatusAndChangeIt(MOVE_BY_Y.command + position)
 
     fun moveByZ(position: Int) =
-            robotEntity.writer.writeDependingStatusAndChangeIt(command.MOVE_BY_Z() + position)
+            robotEntity.writer.writeDependingStatusAndChangeIt(MOVE_BY_Z.command + position)
 }

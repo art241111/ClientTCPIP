@@ -1,5 +1,6 @@
 package link.client
 
+import kawasakiRobots.commands.service.ServiceCommand
 import link.RobotEntity
 import link.State
 import utils.Delay
