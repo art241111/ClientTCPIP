@@ -1,4 +1,4 @@
-package link.handlers
+package kawasakiRobots.handlersFromKawasakiRobots
 
 import link.RobotEntity
 

@@ -1,5 +1,6 @@
 package link
 
+import kawasakiRobots.handlersFromKawasakiRobots.CommandAnalyzerForKawasakiRobots
 import link.client.RemoteReader
 import link.client.RemoteWriter
 import link.client.TelnetClient
@@ -7,7 +8,7 @@ import utils.Delay
 import java.util.*
 import kotlin.concurrent.thread
 
-class RobotEntity(var client: TelnetClient) {
+class RobotEntity(client: TelnetClient) {
     val socket = client.getSocket()
 
     lateinit var writer: RemoteWriter
@@ -26,7 +27,7 @@ class RobotEntity(var client: TelnetClient) {
             writer = RemoteWriter(this)
             reader = RemoteReader(this)
 
-            reader.startReading()
+            reader.startReading(CommandAnalyzerForKawasakiRobots(this))
 
             startQueueListener()
         }
