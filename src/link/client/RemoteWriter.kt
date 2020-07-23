@@ -1,6 +1,5 @@
 package link.client
 
-import kawasakiRobots.commands.service.ServiceCommand
 import link.RobotEntity
 import link.State
 import utils.Delay
@@ -9,7 +8,6 @@ import java.io.PrintStream
 class RemoteWriter(private val robotEntity: RobotEntity) {
     private val socket = robotEntity.socket
     private var out = PrintStream(socket.getOutputStream())
-    private var countCommandsWithCallBack = 0
 
     fun write(message: String): Boolean {
         if(socket.isConnected){
@@ -42,5 +40,4 @@ class RemoteWriter(private val robotEntity: RobotEntity) {
 
     fun writeDependingStatus(message: String):Boolean =
             robotEntity.commandsQueue.add(message)
-
 }
