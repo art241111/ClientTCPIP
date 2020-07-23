@@ -27,6 +27,7 @@ class RobotEntity(client: TelnetClient) {
             writer = RemoteWriter(this)
             reader = RemoteReader(this)
 
+            // TODO: Think about how to make an entity independent
             reader.startReading(CommandAnalyzerForKawasakiRobots(this))
 
             startQueueListener()
