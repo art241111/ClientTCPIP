@@ -16,5 +16,8 @@ class CommandAnalyzerForKawasakiRobots(private var robotEntity: RobotEntity): An
 
         // Error handling
         ErrorsHandler(robotEntity).listener(command)
+
+        // Warning handler
+        WarningsHandler(robotEntity).listener(command)
     }
 }

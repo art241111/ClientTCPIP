@@ -50,7 +50,7 @@ class RobotEntity(client: TelnetClient) {
                 } else if((state == State.WAITING_COMMAND) and (!commandsQueue.isEmpty())){
                     writer.write(commandsQueue.poll().trim())
                 }
-                Delay.little()
+                Delay.customDelay(100L)
             }
         }
     }
