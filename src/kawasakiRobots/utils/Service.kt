@@ -7,6 +7,9 @@ class Service(private var robotEntity: RobotEntity) {
     fun turnOnTheMotors() =
             robotEntity.writer.writeDependingStatus(TURN_ON_THE_MOTORS.command)
 
+    fun turnOffTheMotors() =
+            robotEntity.writer.writeDependingStatus(TURN_OFF_THE_MOTORS.command)
+
     fun resetErrors() =
             robotEntity.writer.writeDependingStatus(DELETE_ERRORS.command)
 
