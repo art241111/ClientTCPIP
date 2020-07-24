@@ -5,10 +5,10 @@ import link.RobotEntity
 
 class Service(private var robotEntity: RobotEntity) {
     fun turnOnTheMotors() =
-            robotEntity.writer.write(TURN_ON_THE_MOTORS.command)
+            robotEntity.writer.writeDependingStatus(TURN_ON_THE_MOTORS.command)
 
     fun resetErrors() =
-            robotEntity.writer.write(DELETE_ERRORS.command)
+            robotEntity.writer.writeDependingStatus(DELETE_ERRORS.command)
 
     fun updateInfoAboutPosition() = robotEntity.writer
             .writeDependingStatus(ROBOT_POSITION.command)

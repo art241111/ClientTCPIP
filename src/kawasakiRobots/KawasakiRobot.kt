@@ -6,6 +6,7 @@ import kawasakiRobots.commands.moving.MovingCommand
 import kawasakiRobots.commands.service.ServiceCommand
 import link.*
 import link.client.TelnetClient
+import utils.Delay
 
 class KawasakiRobot(address: String = "127.0.0.1",
                     port: Int = 9105,
@@ -18,8 +19,11 @@ class KawasakiRobot(address: String = "127.0.0.1",
     val service = Service(robotEntity)
 
     fun switchRobotOff(){
-        while(!robotEntity.commandsQueue.isEmpty() &&
-                robotEntity.state != State.COMMAND_EXECUTION){}
+        while((!robotEntity.commandsQueue.isEmpty() ||
+                robotEntity.state != State.COMMAND_EXECUTION) &&
+                robotEntity.state != State.ERROR ){
+            Delay.middle()
+        }
 
         client.disconnect()
         robotEntity.disconnect()

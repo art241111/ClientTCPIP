@@ -1,6 +1,7 @@
 package kawasakiRobots.handlersFromKawasakiRobots
 
 import link.RobotEntity
+import link.State
 
 class ErrorsHandler(private val robotEntity: RobotEntity) {
     fun listener(command: String) {
@@ -9,6 +10,7 @@ class ErrorsHandler(private val robotEntity: RobotEntity) {
             // TODO: Migrate to log
             println(command)
             robotEntity.errors.add(command)
+            robotEntity.state = State.ERROR
         }
     }
 }

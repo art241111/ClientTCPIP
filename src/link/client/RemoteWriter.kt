@@ -33,7 +33,9 @@ class RemoteWriter(private val robotEntity: RobotEntity) {
         //  The status changes instantly and the queue
         //  does not have time
         Delay.middle()
-        robotEntity.state = State.COMMAND_EXECUTION
+        if (robotEntity.state != State.ERROR){
+            robotEntity.state = State.COMMAND_EXECUTION
+        }
 
         return res
     }

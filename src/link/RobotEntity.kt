@@ -24,13 +24,15 @@ class RobotEntity(client: TelnetClient) {
 
     init{
         if(socket.isConnected){
+            startQueueListener()
+
             writer = RemoteWriter(this)
             reader = RemoteReader(this)
 
             // TODO: Think about how to make an entity independent
             reader.startReading(CommandAnalyzerForKawasakiRobots(this))
 
-            startQueueListener()
+
         }
     }
 
@@ -43,7 +45,9 @@ class RobotEntity(client: TelnetClient) {
     private fun startQueueListener(){
         thread {
             while (connection){
-                if((state == State.WAITING_COMMAND) and (!commandsQueue.isEmpty())){
+                if(state == State.ERROR){
+                    commandsQueue.clear()
+                } else if((state == State.WAITING_COMMAND) and (!commandsQueue.isEmpty())){
                     writer.write(commandsQueue.poll().trim())
                 }
                 Delay.little()

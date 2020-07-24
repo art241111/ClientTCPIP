@@ -2,5 +2,6 @@ package link
 
 enum class State {
     WAITING_COMMAND,
-    COMMAND_EXECUTION
+    COMMAND_EXECUTION,
+    ERROR
 }
