@@ -19,8 +19,7 @@ class KawasakiRobot(address: String = "127.0.0.1",
     val service = Service(robotEntity)
 
     fun switchRobotOff(){
-        while(!robotEntity.commandsQueue.isEmpty() ||
-                robotEntity.state != State.COMMAND_EXECUTION ||
+        while(robotEntity.commandsQueue.size != 0 &&
                 robotEntity.state != State.ERROR ){
             Delay.middle()
         }

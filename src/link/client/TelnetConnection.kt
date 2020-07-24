@@ -47,7 +47,7 @@ class TelnetClient(server: String,
         writer.println(user)
         writer.flush()
 
-        writer.println(password)
-        writer.flush()
+//        writer.println(password)
+//        writer.flush()
     }
 }
