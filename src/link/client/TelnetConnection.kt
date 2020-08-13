@@ -16,6 +16,10 @@ class TelnetClient(server: String,
     init {
         try {
             socket= Socket(server, port)
+
+            if(socket.isConnected){
+                authorization()
+            }
         } catch (e: UnknownHostException){
             // TODO: Migrate to log
             print("Problem with create socket. \n $e")
@@ -23,8 +27,6 @@ class TelnetClient(server: String,
             // TODO: Migrate to log
             print("Problem with create socket. \n $e")
         }
-
-        authorization()
     }
 
     fun getSocket(): Socket{
@@ -46,8 +48,5 @@ class TelnetClient(server: String,
         //TODO: Think about how to do it differently
         writer.println(user)
         writer.flush()
-
-//        writer.println(password)
-//        writer.flush()
     }
 }
